@@ -238,7 +238,7 @@ void solve(int Case) { // printf("Case #%d: ", Case);
         if (k <= t1) ans = cost + k;
         else {
             ans = cost + t1 + (k - t1) * 2;
-            ll c = min(n, k / t1);
+            ll c = t1 == 0 ? n : min(n, k / t1);
             ll t2 = k - c * t1;
             ans = min(ans, (cost + t1) * c + 2 * t2);
             if (c < n) {
