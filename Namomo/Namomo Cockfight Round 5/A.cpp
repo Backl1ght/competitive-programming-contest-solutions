@@ -24,8 +24,8 @@ typedef pair<int,int> PII;
 typedef vector<int> VI;
 typedef vector<vector<int> > VVI;
  
-#define rep(i,_,__) for (int i=(_); i<(__); ++i)
-#define per(i,_,__) for (int i=(_-1); i>=(__); --i)
+#define REP(i,_,__) for (int i=(_); i<(__); ++i)
+#define PER(i,_,__) for (int i=(_-1); i>=(__); --i)
 #define FOR(i,_,__) for (int i=(_); i<=(__); ++i)
 #define ROF(i,_,__) for (int i=(_); i>=(__); --i)
 
@@ -45,7 +45,7 @@ typedef vector<vector<int> > VVI;
    
 const double pi = acos(-1.0);
    
-namespace IO{
+namespace IO {
     bool REOF = 1; //为0表示文件结尾
     inline char nc() {
         static char buf[1 << 20], *p1 = buf, *p2 = buf;
@@ -57,7 +57,7 @@ namespace IO{
         char c = nc();bool f = 0; x = 0;
         while (c<'0' || c>'9') c == '-' && (f = 1), c = nc();
         while (c >= '0'&&c <= '9')x = (x << 3) + (x << 1) + (c ^ 48), c = nc();
-        if(f)x=-x;
+        if (f)x=-x;
         return REOF;
     }
  
@@ -72,7 +72,7 @@ namespace IO{
         read(x);
         return read(rest...);
     }
-    
+   
     // inline bool need(char &c) { return (c == '.') || (c == '#');}
     // inline bool need(char &c) { return ((c >= 'a') && (c <= 'z')) || ((c >= '0') && (c <= '9')) || ((c >= 'A') && (c <= 'Z')); }
     inline bool need(char &c) { return ((c >= 'a') && (c <= 'z')) || ((c >= '0') && (c <= '9')) || ((c >= 'A') && (c <= 'Z')) || c == '.' || c == '#'; }
@@ -97,7 +97,7 @@ namespace IO{
     template<typename TH>
     inline void _dbg(const char *sdbg, TH h){ cerr<<sdbg<<'='<<h<<endl; }
    
-    template<class TH, class... TA>
+    template<typename TH, typename... TA>
     inline void _dbg(const char *sdbg, TH h, TA... a) {
         while(*sdbg!=',')cerr<<*sdbg++;
         cerr<<'='<<h<<','<<' '; _dbg(sdbg+1, a...);
@@ -112,6 +112,11 @@ namespace IO{
     ostream &operator<<(ostream& os, set<T> V) {
         os << "[ "; for (auto vv : V) os << vv << ","; return os << " ]";
     }
+
+    template<typename T>
+    ostream &operator<<(ostream& os, multiset<T> V) {
+        os << "[ "; for (auto vv : V) os << vv << ","; return os << " ]";
+    }
  
     template<typename T>
     ostream &operator<<(ostream& os, map<T,T> V) {
@@ -120,8 +125,19 @@ namespace IO{
   
     template<typename L, typename R>
     ostream &operator<<(ostream &os, pair<L,R> P) {
-        return os << "(" << P.fi << "," << P.se << ")";
+        return os << "(" << P.first << "," << P.second << ")";
     }
+
+
+    template<typename TH>
+    TH MIN(TH a, TH b) { return min(a, b); }
+    template<typename TH, typename... TA>
+    TH MIN(TH a, TA... c) { return min(a, MIN(c...)); }
+
+    template<typename TH>
+    TH MAX(TH a, TH b) { return max(a, b); }
+    template<typename TH, typename... TA>
+    TH MAX(TH a, TA... c) { return max(a, MIN(c...)); }
  
     #ifdef BACKLIGHT
     #define debug(...) _dbg(#__VA_ARGS__, __VA_ARGS__)
@@ -130,147 +146,38 @@ namespace IO{
     #endif
 }
 
-
-
-
- 
-int dx[4] = { 0, 1, 0, -1 };
-int dy[4] = { 1, 0, -1, 0 };
+// int dx[4] = { 0, 1, 0, -1 };
+// int dy[4] = { 1, 0, -1, 0 };
 // int dx[8] = { 1, 0, -1, 1, -1, 1, 0, -1 };
 // int dy[8] = { 1, 1, 1, 0, 0, -1, -1, -1 };
- 
- 
- 
 
- 
-// ll qp(ll a, ll b) {
-//     ll res = 1;
-//     a %= MOD;
-//     assert(b >= 0);
-//     while(b){
-//         if(b&1)
-//             res = res * a % MOD;
-//         a = a * a % MOD;
-//         b >>= 1;
-//     }
-//     return res;
-// }
-// ll inv(ll x) {return qp(x, MOD - 2);}
-// ll factor[N], finv[N];
-// void init() {
-//  factor[0]=1;
-//  for(int i=1; i<N; i++) factor[i] = factor[i-1] * i % MOD;
-//  finv[N-1] = qp(factor[N-1], MOD - 2);
-//  for(int i=N-2; i>=0; i--) finv[i] = finv[i+1] * (i+1) % MOD;
-// }
-// ll c(ll n, ll m) {
-//     return factor[n] * finv[m] % MOD * finv[n-m] % MOD;
-// }
- 
- 
- 
-
- 
-// #define ls (x<<1)
-// #define rs (x<<1|1)
-// #define mid ((l+r)>>1)
-// #define lson ls,l,mid
-// #define rson rs,mid+1,r
-
-
-
- 
- 
-// #define fore(_, __) for(int _=head[__]; _; _=e[_].nxt)
-// int head[N], tot = 1;
-// struct Edge {
-//     int v, nxt;
-//     Edge(){}
-//     Edge(int _v, int _nxt):v(_v), nxt(_nxt) {}
-// }e[M << 1];
-
-// void addedge(int u, int v) {
-//     e[tot] = Edge(v, head[u]); head[u] = tot++;
-//     e[tot] = Edge(u, head[v]); head[v] = tot++;
-// }
- 
-
-
- 
-   
-/**
- * **********     Backlight     **********
+    
+/************     Backlight     **********
  * 一发入魂
  * 仔细读题，注意边界条件
  * 没有思路就试试逆向思维
  * wdnmd!我柜子动了不打了
  * 能不能把我掉的分还给我
- * **********     Backlight     **********
- */
+ ************     Backlight     **********/
 
 using namespace IO;
 const int N = 5e5 + 5;
 const int M = 5e5 + 5;
 const int V = 3e7 + 5;
-const int MOD = 998244353;              // 998244353 1e9+7
+const int MOD = 1e9 + 7;              // 998244353 1e9+7
 const int INF = 0x3f3f3f3f;             // 1e9+7 0x3f3f3f3f
 const ll LLINF = 0x3f3f3f3f3f3f3f3f;    // 1e18+9 0x3f3f3f3f3f3f3f3f
 const double eps = 1e-8;
 
-int n, m;
-char s[2005][2005];
 
-int dp1[2005][2005], dp2[2005][2005], dp3[2005][2005], dp4[2005][2005];
+
 void solve(int Case) { // printf("Case #%d: ", Case);
-    read(n, m);
-    FOR(i, 1 ,n) read_str(s[i] + 1);
-
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            if (s[i][j] == s[i - 1][j] && s[i][j] == s[i][j - 1]) {
-                dp1[i][j] = min(dp1[i - 1][j], dp1[i][j - 1]) + 1;
-            } else {
-                dp1[i][j] = 1;
-            }
-        }
-    }
-
-    for (int i = 1; i <= n; ++i) {
-        for (int j = m; j >= 1; --j) {
-            if (s[i][j] == s[i - 1][j] && s[i][j] == s[i][j + 1]) {
-                dp2[i][j] = min(dp2[i - 1][j], dp2[i][j + 1]) + 1;
-            } else {
-                dp2[i][j] = 1;
-            }
-        }
-    }
-
-    for (int i = n; i >= 1; --i) {
-        for (int j = 1; j <= m; ++j) {
-            if (s[i][j] == s[i + 1][j] && s[i][j] == s[i][j - 1]) {
-                dp3[i][j] = min(dp3[i + 1][j], dp3[i][j - 1]) + 1;
-            } else {
-                dp3[i][j] = 1;
-            }
-        }
-    }
-
-    for (int i = n; i >= 1; --i) {
-        for (int j = m; j >= 1; --j) {
-            if (s[i][j] == s[i + 1][j] && s[i][j] == s[i][j + 1]) {
-                dp4[i][j] = min(dp4[i + 1][j], dp4[i][j + 1]) + 1;
-            } else {
-                dp4[i][j] = 1;
-            }
-        }
-    }
-    
+    ll n;
+    read(n);
     ll ans = 0;
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            int ma = min(dp1[i][j], min(dp2[i][j], min(dp3[i][j], dp4[i][j])));
-            ans += ma;
-        }
+    while(n) {
+        ans = max(ans, n % 10);
+        n /= 10;
     }
     printf("%lld\n", ans);
 }
@@ -281,8 +188,8 @@ int main()
     freopen("in.txt", "r", stdin);
 #endif
     // ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-    // int _T; read(_T); for (int _ = 1; _ <= _T; _++) solve(_);
-    // int _T = 1; while(read(a, b)) solve(_T), _T++;
-    solve(1);
+    int T = 1;
+    // read(T);
+    for (int _ = 1; _ <= T; _++) solve(_);
     return 0;
 }
