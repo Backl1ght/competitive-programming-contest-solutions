@@ -186,28 +186,37 @@ const int INF = 0x3f3f3f3f;             // 1e9 + 7 0x3f3f3f3f
 const ll LLINF = 0x3f3f3f3f3f3f3f3f;    // 1e18 + 9 0x3f3f3f3f3f3f3f3f
 const double eps = 1e-8;
 
-
 void solve(int Case) { // printf("Case #%d: ", Case);3
-    int n;
+    int n; 
     read(n);
+    VI a(n);
 
-    if (n > 45) {
-        puts("-1");
-        return;
+    int sum = 0;
+    REP(i, 0, n) {
+        read(a[i]);
+        sum += a[i];
     }
 
-    string s;
-    int x = n, b = 0, v = 9;
-    while(x > v) {
-        s.PB('0' + v);
-        x -= v;
-        ++b;
-        --v;
-    }
-    if (x) s.PB('0' + x);
-    reverse(ALL(s));
+    int ans = n - 1, block = 0;
+    REP(i, 0, n) {
+        block += a[i];
 
-    cout << s << endl;
+        if (sum % block != 0) continue;
+
+        bool flag = true;
+        int cur = 0, cnt = 1;
+        REP(j, i + 1, n) {
+            cur += a[j];
+            if (cur > block) flag = false;
+            else if (cur == block) ++cnt, cur = 0;
+        }
+        if (cur != 0) flag = false;
+
+        debug(block, cnt, flag);
+
+        if (flag) updMin(ans, n - cnt);
+    }
+    println(ans);
 }
 
 int main() {
