@@ -332,9 +332,9 @@ $$
 <summary>AC代码</summary>
 
 ```cpp
-// Problem: F - Bread
+// Problem: G - Pre-Order
 // Contest: AtCoder - AtCoder Beginner Contest 252
-// URL: https://atcoder.jp/contests/abc252/tasks/abc252_f
+// URL: https://atcoder.jp/contests/abc252/tasks/abc252_g
 // Memory Limit: 1024 MB
 // Time Limit: 2000 ms
 //
@@ -364,33 +364,31 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 
+const int mod = 998244353;
 void solve_case(int Case) {
   int n;
-  i64 l;
-  std::cin >> n >> l;
+  std::cin >> n;
 
-  std::priority_queue<i64, std::vector<i64>, std::greater<i64>> q;
-  i64 z = 0;
-  for (int i = 0; i < n; ++i) {
-    int x;
-    std::cin >> x;
-    q.push(x);
-    z += x;
+  std::vector<int> a(n + 1);
+  for (int i = 1; i <= n; ++i)
+    std::cin >> a[i];
+
+  std::vector<std::vector<int>> dp(n + 2, std::vector<int>(n + 2));
+  for (int l = n + 1; l >= 2; --l) {
+    for (int r = l; r <= n + 1; ++r) {
+      if (l == r)
+        dp[l][r] = 1;
+      else {
+        dp[l][r] = dp[l + 1][r];
+        for (int k = l + 1; k + 1 <= r; ++k) {
+          if (a[l] < a[k])
+            dp[l][r] = (dp[l][r] + i64(1) * dp[l + 1][k] * dp[k][r] % mod) % mod;
+        }
+      }
+    }
   }
-  if (z < l)
-    q.push(l - z);
-
-  i64 ans = 0;
-  while (q.size() > 1) {
-    i64 x = q.top();
-    q.pop();
-    i64 y = q.top();
-    q.pop();
-
-    ans += x + y;
-    q.push(x + y);
-  }
-  std::cout << ans << "\n";
+  logd(dp);
+  std::cout << dp[2][n + 1] << "\n";
 }
 
 ```
