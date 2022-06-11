@@ -208,7 +208,7 @@ void solve_case(int Case) {
 <details>
 <summary>思路</summary>
 
-对于每个询问，满足条件的点不超过$3^3 = 27$个，直接BFS或者DFS就完事了。
+对于每个询问，满足条件的点不超过$\sum_{i = 0}^{3} 3^i = 40$个，直接BFS或者DFS就完事了。
 
 </details>
 
