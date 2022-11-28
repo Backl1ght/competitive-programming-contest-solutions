@@ -271,10 +271,10 @@ void SolveCase(int Case) {
 将问题表述成生成函数的形式，则答案为
 
 $$
-[x^m] \prod_{i=1}^{n}(x + 2x^2 + 3x^3 + \dots + ix^i + ix^{x+1} + ix^{i+2})
+[x^m] \prod_{i=1}^{n}(x + 2x^2 + 3x^3 + \dots + ix^i + ix^{x+1} + ix^{i+2} + \dots)
 $$
 
-括号里的式子可以分成两部分，$\sum_{j = 1}^i jx^j$ 和 $\sum_{j = i + 1}^{n} i x^j$，用数列或者说级数相关知识可以将其化为
+括号里的式子可以分成两部分，$\sum_{j = 1}^i jx^j$ 和 $\sum_{j = i + 1}^{+\infin} i x^j$，用数列或者说级数相关知识可以将其化为
 
 $$
 [x^m] \prod_{i = 1}^n \frac{x(1 - x^i)}{{(1-x)}^2}
@@ -289,13 +289,13 @@ $$
 把连乘换到分子分母上（乘法交换律）得
 
 $$
-[x^{m - n}] \frac{\prod_{i = 1}^{n} 1 - x^i}{{(1-x)}^{2n}}
+[x^{m - n}] \frac{\prod_{i = 1}^{n} (1 - x^i)}{{(1-x)}^{2n}}
 $$
 
 注意到我们只要求 $x^{m - n}$ 的系数，而 $\prod_{i = 1}^{n} 1 - x^i$ 再乘上 $1 - x^b, b > n$ 只会影响 $x^i, i > b$ 的系数，而 $m - n \le n$ ，所以前式等价与
 
 $$
-[x^{m - n}] \frac{\prod_{i = 1}^{+\infin} 1 - x^i}{{(1-x)}^{2n}}
+[x^{m - n}] \frac{\prod_{i = 1}^{+\infin} (1 - x^i)}{{(1-x)}^{2n}}
 $$
 
 根据 [pentagonal number theorem](https://en.wikipedia.org/wiki/Pentagonal_number_theorem)将式子转化成
