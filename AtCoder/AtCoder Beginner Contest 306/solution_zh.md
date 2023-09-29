@@ -1,10 +1,10 @@
 # AtCoder Beginner Contest 306
 
-# [E - Best Performances](https://atcoder.jp/contests/abc306/tasks/abc306_e)
+## [E - Best Performances](https://atcoder.jp/contests/abc306/tasks/abc306_e)
 
 拿两个 `std::set` 维护，一个放 top k 的元素，一个放剩余的，然后就是简单模拟了。
 
-# [F - Merge Sets](https://atcoder.jp/contests/abc306/tasks/abc306_f)
+## [F - Merge Sets](https://atcoder.jp/contests/abc306/tasks/abc306_f)
 
 每一行算贡献，加起来即为答案。假设现在正在处理第 $i$ 行的贡献，那么 $a_{i, j}$ 每超过第 $k \ge i$ 行中的一个元素，都会增加 $1$ 的贡献，注意这里第 $i$ 行的元素其实使用了 $n - i$ 次，所以要特殊处理。
 
@@ -14,7 +14,7 @@
 
 然后就只需要考虑 $k > i$ 的情况了，这种情况下就是算 rank ，由于数据范围较小，可以离散化然后用权值树状数组搞。
 
-# [G - Return to 1](https://atcoder.jp/contests/abc306/tasks/abc306_g)
+## [G - Return to 1](https://atcoder.jp/contests/abc306/tasks/abc306_g)
 
 首先可以删除非强连通的节点，这个两次 `dfs` 搞定。
 
@@ -28,6 +28,6 @@
 
 自此，我们只需要考虑 $\gcd(dep(u) + 1 - dep(v))$ 。
 
-# [Ex - Balance Scale](https://atcoder.jp/contests/abc306/tasks/abc306_h)
+## [Ex - Balance Scale](https://atcoder.jp/contests/abc306/tasks/abc306_h)
 
 To be solved.
